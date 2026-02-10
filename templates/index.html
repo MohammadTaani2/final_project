@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مساعد العقود القانوني الأردني - Jordanian Legal Assistant</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Roboto:wght@400;500;700&display=swap');
+
+        :root {
+            --wood-dark: #3e2723;
+            --wood-medium: #5d4037;
+            --wood-light: #795548;
+            --wood-lighter: #a1887f;
+            --wood-lightest: #d7ccc8;
+            --accent-gold: #d4af37;
+            --accent-gold-dark: #b8941f;
+            --cream: #f5f5dc;
+            --white: #ffffff;
+            --shadow: rgba(62, 39, 35, 0.3);
+            --success: #4caf50;
+            --warning: #ff9800;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cairo', 'Roboto', sans-serif;
+            background: linear-gradient(135deg, var(--wood-dark) 0%, var(--wood-medium) 50%, var(--wood-light) 100%);
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(0,0,0,0.03) 2px,
+                    rgba(0,0,0,0.03) 4px
+                );
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: var(--cream);
+            border-radius: 20px;
+            box-shadow: 
+                0 30px 90px var(--shadow),
+                inset 0 1px 0 rgba(255,255,255,0.3);
+            overflow: hidden;
+            position: relative;
+            z-index: 2;
+            border: 3px solid var(--wood-lighter);
+        }
+
+        .container::before,
+        .container::after {
+            content: '⚖️';
+            position: absolute;
+            font-size: 3em;
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        .container::before {
+            top: 20px;
+            left: 20px;
+        }
+
+        .container::after {
+            bottom: 20px;
+            right: 20px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--wood-dark) 0%, var(--wood-medium) 100%);
+            color: var(--cream);
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 4px 20px var(--shadow);
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 10px,
+                    rgba(255,255,255,0.02) 10px,
+                    rgba(255,255,255,0.02) 20px
+                );
+            pointer-events: none;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            font-size: 4em;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 900;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            background: linear-gradient(to right, var(--accent-gold), var(--cream), var(--accent-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header .subtitle {
+            font-size: 1.3em;
+            opacity: 0.95;
+            font-weight: 500;
+            margin-bottom: 15px;
+            direction: ltr;
+            text-align: center;
+        }
+
+        .disclaimer {
+            background: rgba(212, 175, 55, 0.15);
+            border: 2px solid var(--accent-gold);
+            border-radius: 12px;
+            padding: 15px 20px;
+            margin: 20px auto 0;
+            max-width: 800px;
+            font-size: 0.95em;
+            line-height: 1.6;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .disclaimer-title {
+            font-weight: 700;
+            color: var(--accent-gold);
+            margin-bottom: 8px;
+            font-size: 1.1em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .disclaimer-text {
+            color: var(--cream);
+            text-align: center;
+        }
+
+        .disclaimer-text .ar {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .disclaimer-text .en {
+            display: block;
+            font-size: 0.9em;
+            opacity: 0.9;
+            direction: ltr;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 450px 1fr;
+            gap: 0;
+            position: relative;
+        }
+
+        .chat-section {
+            background: linear-gradient(180deg, var(--wood-lightest) 0%, var(--cream) 100%);
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            height: 700px;
+            border-right: 3px solid var(--wood-lighter);
+            box-shadow: 4px 0 20px rgba(0,0,0,0.1);
+        }
+
+        .contract-section {
+            background: var(--white);
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            height: 700px;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: 1.5em;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--wood-dark);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid var(--accent-gold);
+        }
+
+        .section-title .icon {
+            font-size: 1.3em;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            background: var(--white);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 
+                inset 0 2px 10px rgba(0,0,0,0.05),
+                0 2px 8px rgba(0,0,0,0.05);
+            border: 2px solid var(--wood-lightest);
+        }
+
+        .chat-messages::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        .chat-messages::-webkit-scrollbar-track {
+            background: var(--cream);
+            border-radius: 10px;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: var(--wood-lighter);
+            border-radius: 10px;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb:hover {
+            background: var(--wood-light);
+        }
+
+        .message {
+            margin-bottom: 15px;
+            padding: 15px 20px;
+            border-radius: 15px;
+            max-width: 85%;
+            word-wrap: break-word;
+            animation: slideIn 0.3s ease-out;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message.user {
+            background: linear-gradient(135deg, var(--wood-medium), var(--wood-light));
+            color: var(--cream);
+            margin-left: auto;
+            margin-right: 0;
+            border-bottom-right-radius: 5px;
+        }
+
+        .message.assistant {
+            background: linear-gradient(135deg, var(--wood-lightest), var(--cream));
+            color: var(--wood-dark);
+            border: 1px solid var(--wood-lighter);
+            border-bottom-left-radius: 5px;
+        }
+
+        .message::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            width: 0;
+            height: 0;
+            border-style: solid;
+        }
+
+        .message.user::before {
+            right: -8px;
+            border-width: 8px 0 0 8px;
+            border-color: transparent transparent transparent var(--wood-light);
+        }
+
+        .message.assistant::before {
+            left: -8px;
+            border-width: 8px 8px 0 0;
+            border-color: transparent var(--wood-lightest) transparent transparent;
+        }
+
+        .chat-input-container {
+            display: flex;
+            gap: 10px;
+            position: relative;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 15px 20px;
+            border: 3px solid var(--wood-lighter);
+            border-radius: 12px;
+            font-size: 1em;
+            font-family: 'Cairo', sans-serif;
+            background: var(--white);
+            color: var(--wood-dark);
+            transition: all 0.3s;
+        }
+
+        .chat-input:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+        }
+
+        .btn {
+            padding: 15px 30px;
+            background: linear-gradient(135deg, var(--wood-medium), var(--wood-light));
+            color: var(--cream);
+            border: none;
+            border-radius: 12px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 700;
+            font-family: 'Cairo', sans-serif;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+            background: linear-gradient(135deg, var(--wood-light), var(--wood-medium));
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn:disabled {
+            background: linear-gradient(135deg, #bdbdbd, #9e9e9e);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .btn-gold {
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-dark));
+        }
+
+        .btn-gold:hover {
+            background: linear-gradient(135deg, var(--accent-gold-dark), var(--accent-gold));
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 3px solid var(--wood-lightest);
+            padding-bottom: 10px;
+        }
+
+        .tab {
+            padding: 12px 25px;
+            background: var(--cream);
+            border: 2px solid var(--wood-lighter);
+            border-bottom: none;
+            border-radius: 10px 10px 0 0;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--wood-medium);
+            transition: all 0.3s;
+            position: relative;
+            bottom: -3px;
+        }
+
+        .tab:hover {
+            background: var(--wood-lightest);
+        }
+
+        .tab.active {
+            background: var(--white);
+            color: var(--wood-dark);
+            border-color: var(--accent-gold);
+            box-shadow: 0 -3px 10px rgba(0,0,0,0.1);
+        }
+
+        .tab-content {
+            display: none;
+            flex: 1;
+            overflow-y: auto;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .tab-content.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .contract-display {
+            background: var(--white);
+            border: 3px solid var(--wood-lighter);
+            border-radius: 12px;
+            padding: 30px;
+            font-size: 1em;
+            line-height: 2;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            font-family: 'Cairo', 'Courier New', monospace;
+            direction: rtl;
+            box-shadow: 
+                inset 0 2px 10px rgba(0,0,0,0.05),
+                0 2px 8px rgba(0,0,0,0.05);
+            flex: 1;
+        }
+
+        .contract-display::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        .contract-display::-webkit-scrollbar-track {
+            background: var(--cream);
+            border-radius: 10px;
+        }
+
+        .contract-display::-webkit-scrollbar-thumb {
+            background: var(--wood-lighter);
+            border-radius: 10px;
+        }
+
+        .review-display {
+            background: var(--white);
+            border: 3px solid var(--wood-lighter);
+            border-radius: 12px;
+            padding: 30px;
+            font-size: 1em;
+            line-height: 1.8;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            font-family: 'Cairo', sans-serif;
+            flex: 1;
+            box-shadow: 
+                inset 0 2px 10px rgba(0,0,0,0.05),
+                0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .contract-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .contract-placeholder {
+            color: var(--wood-lighter);
+            text-align: center;
+            padding: 100px 20px;
+            font-size: 1.3em;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .contract-placeholder .icon {
+            font-size: 4em;
+            opacity: 0.3;
+        }
+
+        .review-placeholder {
+            color: var(--wood-lighter);
+            text-align: center;
+            padding: 100px 20px;
+            font-size: 1.2em;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .review-placeholder .icon {
+            font-size: 4em;
+            opacity: 0.3;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 15px;
+            color: var(--wood-medium);
+            background: rgba(212, 175, 55, 0.1);
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .loading.active {
+            display: block;
+        }
+
+        .spinner {
+            border: 4px solid var(--wood-lightest);
+            border-top: 4px solid var(--accent-gold);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            background: var(--accent-gold);
+            color: var(--wood-dark);
+            border-radius: 20px;
+            font-size: 0.75em;
+            font-weight: 700;
+            margin-left: 8px;
+        }
+
+        @media (max-width: 1200px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+
+            .chat-section {
+                border-right: none;
+                border-bottom: 3px solid var(--wood-lighter);
+                height: 500px;
+            }
+
+            .contract-section {
+                height: 600px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .header .subtitle {
+                font-size: 1em;
+            }
+
+            .logo {
+                font-size: 2.5em;
+            }
+
+            .section-title {
+                font-size: 1.2em;
+            }
+
+            .contract-actions {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+
+            .container {
+                box-shadow: none;
+                border: 1px solid #000;
+            }
+
+            .chat-section,
+            .contract-actions,
+            .tabs {
+                display: none;
+            }
+
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+
+            .contract-display {
+                border: none;
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo-section">
+                <span class="logo">⚖️</span>
+            </div>
+            <h1>مساعد العقود القانوني الأردني</h1>
+            <p class="subtitle">Jordanian Legal Lease Assistant</p>
+            
+            <div class="disclaimer">
+                <div class="disclaimer-title">
+                    ⚠️ تنويه مهم | Important Notice
+                </div>
+                <div class="disclaimer-text">
+                    <span class="ar">لأغراض تعليمية فقط • مبني على القانون الأردني</span>
+                    <span class="en">For Educational Purposes Only • Built on Jordanian Law</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="chat-section">
+                <div class="section-title">
+                    <span class="icon">💬</span>
+                    <span>المحادثة</span>
+                    <span class="badge">مرئية</span>
+                </div>
+                
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message assistant">
+                        مرحباً! أنا مساعدك القانوني الذكي 🎓<br><br>
+                        <strong>يمكنني مساعدتك في:</strong><br>
+                        📝 إنشاء عقد إيجار جديد (سكني، تجاري، مفروش...)<br>
+                        ✏️ تعديل عقد موجود<br>
+                        📖 شرح بنود العقد بالتفصيل<br>
+                        🔍 مراجعة قانونية شاملة<br><br>
+                        <strong>مثال:</strong> "اريد عقد ايجار لشقة مفروشة"
+                    </div>
+                </div>
+
+                <div class="loading" id="loading">
+                    <div class="spinner"></div>
+                    <p><strong>جاري المعالجة...</strong></p>
+                </div>
+
+                <div class="chat-input-container">
+                    <input 
+                        type="text" 
+                        class="chat-input" 
+                        id="chatInput" 
+                        placeholder="اكتب رسالتك هنا... 💭"
+                        onkeypress="handleKeyPress(event)"
+                    >
+                    <button class="btn btn-gold" onclick="sendMessage()" id="sendBtn">
+                        إرسال 📤
+                    </button>
+                </div>
+            </div>
+
+            <div class="contract-section">
+                <div class="tabs">
+                    <div class="tab active" onclick="switchTab('contract')">
+                        📄 العقد
+                    </div>
+                    <div class="tab" onclick="switchTab('review')">
+                        🔍 المراجعة القانونية
+                    </div>
+                </div>
+
+                <div class="tab-content active" id="contractTab">
+                    <div class="contract-display" id="contractDisplay">
+                        <div class="contract-placeholder">
+                            <span class="icon">📜</span>
+                            <div>
+                                سيظهر العقد هنا بعد إنشائه...<br>
+                                <small>The contract will appear here once generated...</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contract-actions">
+                        <button class="btn btn-gold" onclick="downloadPDF()" id="downloadBtn" disabled>
+                            📥 تحميل PDF
+                        </button>
+                        <button class="btn" onclick="reviewContract()" id="reviewBtn" disabled>
+                            🔍 مراجعة قانونية
+                        </button>
+                        <button class="btn" onclick="copyContract()" id="copyBtn" disabled>
+                            📋 نسخ النص
+                        </button>
+                        <button class="btn" onclick="clearContract()" id="clearBtn" disabled>
+                            🗑️ مسح
+                        </button>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="reviewTab">
+                    <div class="review-display" id="reviewDisplay">
+                        <div class="review-placeholder">
+                            <span class="icon">🔍</span>
+                            <div>
+                                ستظهر نتيجة المراجعة القانونية هنا...<br>
+                                <small>Legal review results will appear here...</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentContract = null;
+        let contractLanguage = 'arabic';
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                sendMessage();
+            }
+        }
+
+        async function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            
+            if (!message) return;
+
+            input.disabled = true;
+            document.getElementById('sendBtn').disabled = true;
+            document.getElementById('loading').classList.add('active');
+
+            addMessage(message, 'user');
+            input.value = '';
+
+            try {
+                const response = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        message: message,
+                        current_contract: currentContract
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    const action = data.action || 'none';
+                    console.log('Action received:', action);
+                    console.log('Contract in response:', data.contract ? 'Yes' : 'No');
+                    
+                    // ✅ FIX: Check action BEFORE showing response
+                    if (action === 'updated') {
+                        console.log('✅ Updating contract display');
+                        currentContract = data.contract;
+                        displayContract(data.contract);
+                        enableContractButtons();
+                        contractLanguage = detectLanguage(data.contract);
+                        
+                        // Show success message in chat, NOT the contract
+                        const successMsg = contractLanguage === 'arabic' 
+                            ? '✅ تم إنشاء العقد بنجاح! تحقق من قسم "العقد" ←'
+                            : '✅ Contract created successfully! Check the "Contract" section →';
+                        addMessage(successMsg, 'assistant');
+                        
+                    } else if (action === 'unchanged') {
+                        console.log('📌 Keeping contract display unchanged');
+                        if (data.contract) {
+                            currentContract = data.contract;
+                        }
+                        // Show the LLM response (e.g., refusal, error)
+                        addMessage(data.response, 'assistant');
+                        
+                    } else {
+                        // No contract - just show the response
+                        console.log('❌ No contract');
+                        addMessage(data.response, 'assistant');
+                    }
+                } else {
+                    addMessage('❌ خطأ: ' + (data.error || 'حدث خطأ غير متوقع'), 'assistant');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                addMessage('❌ خطأ في الاتصال بالخادم', 'assistant');
+            } finally {
+                input.disabled = false;
+                document.getElementById('sendBtn').disabled = false;
+                document.getElementById('loading').classList.remove('active');
+                input.focus();
+            }
+        }
+
+        function detectLanguage(text) {
+            const arabicChars = text.match(/[\u0600-\u06FF]/g);
+            const totalChars = text.replace(/\s/g, '').length;
+            const arabicRatio = arabicChars ? arabicChars.length / totalChars : 0;
+            return arabicRatio > 0.5 ? 'arabic' : 'english';
+        }
+
+        function addMessage(text, type) {
+            const messagesDiv = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}`;
+            messageDiv.innerHTML = text;
+            messagesDiv.appendChild(messageDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        function displayContract(contractText) {
+            const display = document.getElementById('contractDisplay');
+            display.textContent = contractText;
+            display.style.textAlign = contractLanguage === 'arabic' ? 'right' : 'left';
+            display.style.direction = contractLanguage === 'arabic' ? 'rtl' : 'ltr';
+        }
+
+        function enableContractButtons() {
+            document.getElementById('downloadBtn').disabled = false;
+            document.getElementById('reviewBtn').disabled = false;
+            document.getElementById('copyBtn').disabled = false;
+            document.getElementById('clearBtn').disabled = false;
+        }
+
+        function switchTab(tabName) {
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+
+            document.getElementById('contractTab').classList.remove('active');
+            document.getElementById('reviewTab').classList.remove('active');
+
+            if (tabName === 'contract') {
+                document.getElementById('contractTab').classList.add('active');
+            } else if (tabName === 'review') {
+                document.getElementById('reviewTab').classList.add('active');
+            }
+        }
+
+        async function downloadPDF() {
+            if (!currentContract) return;
+
+            try {
+                addMessage('📥 جاري تحميل PDF...', 'assistant');
+
+                const response = await fetch('/api/export-pdf', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        contract_text: currentContract
+                    })
+                });
+
+                if (response.ok) {
+                    const blob = await response.blob();
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'lease_contract.pdf';
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                    document.body.removeChild(a);
+                    
+                    addMessage('✅ تم تحميل العقد بصيغة PDF بنجاح!', 'assistant');
+                } else {
+                    addMessage('❌ فشل تحميل PDF', 'assistant');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                addMessage('❌ خطأ في تحميل PDF', 'assistant');
+            }
+        }
+
+        async function reviewContract() {
+            if (!currentContract) return;
+
+            switchTab('review');
+            document.querySelectorAll('.tab')[1].classList.add('active');
+            document.querySelectorAll('.tab')[0].classList.remove('active');
+
+            const reviewDisplay = document.getElementById('reviewDisplay');
+            reviewDisplay.innerHTML = `
+                <div style="text-align: center; padding: 50px;">
+                    <div class="spinner"></div>
+                    <p style="margin-top: 20px; color: var(--wood-medium);">
+                        <strong>جاري المراجعة القانونية الشاملة...</strong><br>
+                        <small>Conducting comprehensive legal review...</small>
+                    </p>
+                </div>
+            `;
+
+            document.getElementById('reviewBtn').disabled = true;
+            addMessage('🔍 بدأت المراجعة القانونية...', 'assistant');
+
+            try {
+                const response = await fetch('/api/review', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        contract_text: currentContract
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    reviewDisplay.textContent = data.review;
+                    reviewDisplay.style.textAlign = contractLanguage === 'arabic' ? 'right' : 'left';
+                    reviewDisplay.style.direction = contractLanguage === 'arabic' ? 'rtl' : 'ltr';
+                    
+                    addMessage('✅ اكتملت المراجعة! انتقل إلى تبويب "المراجعة القانونية"', 'assistant');
+                } else {
+                    reviewDisplay.innerHTML = `
+                        <div class="review-placeholder">
+                            <span class="icon">❌</span>
+                            <div>فشلت المراجعة القانونية<br><small>Legal review failed</small></div>
+                        </div>
+                    `;
+                    addMessage('❌ فشلت المراجعة القانونية', 'assistant');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                reviewDisplay.innerHTML = `
+                    <div class="review-placeholder">
+                        <span class="icon">❌</span>
+                        <div>خطأ في الاتصال<br><small>Connection error</small></div>
+                    </div>
+                `;
+                addMessage('❌ خطأ في المراجعة القانونية', 'assistant');
+            } finally {
+                document.getElementById('reviewBtn').disabled = false;
+            }
+        }
+
+        function copyContract() {
+            if (!currentContract) return;
+
+            navigator.clipboard.writeText(currentContract).then(() => {
+                addMessage('✅ تم نسخ العقد إلى الحافظة!', 'assistant');
+            }).catch(err => {
+                console.error('Error copying:', err);
+                addMessage('❌ فشل النسخ', 'assistant');
+            });
+        }
+
+        function clearContract() {
+            if (confirm('هل أنت متأكد من مسح العقد والمراجعة؟\nAre you sure you want to clear the contract and review?')) {
+                currentContract = null;
+                contractLanguage = 'arabic';
+                
+                document.getElementById('contractDisplay').innerHTML = `
+                    <div class="contract-placeholder">
+                        <span class="icon">📜</span>
+                        <div>
+                            سيظهر العقد هنا بعد إنشائه...<br>
+                            <small>The contract will appear here once generated...</small>
+                        </div>
+                    </div>
+                `;
+
+                document.getElementById('reviewDisplay').innerHTML = `
+                    <div class="review-placeholder">
+                        <span class="icon">🔍</span>
+                        <div>
+                            ستظهر نتيجة المراجعة القانونية هنا...<br>
+                            <small>Legal review results will appear here...</small>
+                        </div>
+                    </div>
+                `;
+                
+                document.getElementById('downloadBtn').disabled = true;
+                document.getElementById('reviewBtn').disabled = true;
+                document.getElementById('copyBtn').disabled = true;
+                document.getElementById('clearBtn').disabled = true;
+                
+                switchTab('contract');
+                document.querySelectorAll('.tab')[0].classList.add('active');
+                document.querySelectorAll('.tab')[1].classList.remove('active');
+                
+                addMessage('🗑️ تم مسح العقد والمراجعة', 'assistant');
+            }
+        }
+
+        window.onload = () => {
+            document.getElementById('chatInput').focus();
+        };
+    </script>
+</body>
+</html>

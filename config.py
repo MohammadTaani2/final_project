@@ -65,8 +65,8 @@ class ModelConfig:
     chat_model: str = "gpt-4o-mini"  
     
     # Retrieval settings with Cohere reranking
-    top_k: int = 40  # Get more results from Supabase before reranking
-    rerank_top_k: int = 9  # After Cohere reranking, keep top 8 most relevant
+    top_k: int = 30  # Get more results from Supabase before reranking
+    rerank_top_k: int = 12  # After Cohere reranking, keep top 8 most relevant
     
     # Token limits
     max_completion_tokens: int = 4000

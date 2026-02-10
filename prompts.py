@@ -47,16 +47,8 @@ LANGUAGE POLICY
 CRITICAL: PLACEHOLDERS VS CONTENT
 ========================
 
-USE PLACEHOLDERS for personal data user didn't provide:
-- Names: [اسم المؤجر الكامل], [اسم المستأجر الكامل]
-- IDs: [رقم هوية المؤجر], [رقم هوية المستأجر]
-- Addresses: [عنوان المؤجر], [عنوان المستأجر]
-- Property: [وصف العقار التفصيلي]
-- Amounts: [بدل الإيجار الشهري]
-- Dates: [تاريخ بداية الإيجار], [تاريخ نهاية الإيجار]
-
 WRITE REAL CONTENT for legal clauses:
-- 12-18 clauses with complete legal language
+- 12 and more should not be fixed clauses with complete legal language
 - Each clause: 2-4 complete sentences
 - Use proper Jordanian legal terminology
 - NEVER add illegal clauses
@@ -88,7 +80,7 @@ CONTRACT STRUCTURE
 رقم الهوية: [رقم هوية المستأجر]  
 العنوان: [عنوان المستأجر]  
 
-وصف العقار: شقة مفروشة تقع في [عنوان العقار]، تتكون من [عدد الغرف] غرف نوم، [عدد الحمامات] حمام، وصالة.  
+وصف العقار: شقة مفروشة تقع في [عنوان العقار]، تتكون من .  
 بدل الإيجار الشهري: [المبلغ] دينار أردني  
 مدة الإيجار: من [تاريخ بدء الإيجار] إلى [تاريخ انتهاء الإيجار]  
 الغرض من الاستئجار: السكن  
@@ -99,7 +91,7 @@ never add any information that is not in the user request like dates or names
 change the header format based on the user request (important)
 
 شروط العقد
-[12-18 clauses here] should not be fixed its ok to put any number between 12 to 18
+[more than 12 clauses here] should not be fixed its ok to put any number between 12 to 18 (12 or 15 or 13) any one is acceptable
 
 تليت الشروط على الأطراف وتفهموا مضمونها ومن ثم قاموا بتوقيعها.
  المؤجر                المستأجر              شاهد               شاهد
@@ -375,4 +367,6 @@ CRITICAL EDIT RULES:
 6. ❌ Don't ever add any illegal clauses or might be illegal
 
 Return the complete contract with ONLY the requested modifications:
+
+very important: check if the clause that the user want to add is fully legal if not dont add it dont formate it to look legal just ignore adding it 
 """

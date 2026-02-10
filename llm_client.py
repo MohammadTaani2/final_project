@@ -242,7 +242,7 @@ Respond ONLY with valid JSON:
 
         generated_contract = response.choices[0].message.content.strip()
         
-        # ✅ VALIDATE DATES IN GENERATED CONTRACT
+        # VALIDATE DATES IN GENERATED CONTRACT
         dates_valid, error_msg = self._validate_dates_in_text(generated_contract, lang)
         if not dates_valid:
             print("❌ Generated contract contains invalid dates")
@@ -263,9 +263,14 @@ Respond ONLY with valid JSON:
             # Return error message - contract will be preserved by get_chat_response
             return error_msg
         
+        # ✅ CRITICAL: Make sure we're sending the FULL contract
+        print(f"📋 Editing contract - length: {len(current_contract)}")
+        if len(current_contract) < 500:
+            print(f"⚠️ WARNING: Contract seems too short!")
+        
         # Proceed with edit
         edit_prompt = build_edit_prompt_with_preservation(
-            current_contract=current_contract, 
+            current_contract=current_contract,  # Make sure this is the FULL contract
             user_request=user_request, 
             user_language=lang
         )
@@ -274,8 +279,7 @@ Respond ONLY with valid JSON:
             {"role": "system", "content": SYSTEM_PROMPT},
             {"role": "user", "content": edit_prompt},
         ]
-
-        print("🤖 Calling OpenAI for edit...")
+        
         response = self._chat_completion(messages, deterministic=True)
         if response is None:
             if lang == "arabic":
@@ -284,7 +288,9 @@ Respond ONLY with valid JSON:
 
         edited_contract = response.choices[0].message.content.strip()
         
-        # ✅ VALIDATE DATES IN EDITED CONTRACT
+        print(f"📄 Received edited contract - length: {len(edited_contract)}")
+        
+        # VALIDATE DATES IN EDITED CONTRACT
         dates_valid, error_msg = self._validate_dates_in_text(edited_contract, lang)
         if not dates_valid:
             print("❌ Edit produced invalid dates - returning error")
@@ -292,8 +298,14 @@ Respond ONLY with valid JSON:
                 return f"⚠️ التعديل أنتج تواريخ غير صحيحة:\n\n{error_msg}\n\nالعقد الأصلي محفوظ."
             return f"⚠️ Edit produced invalid dates:\n\n{error_msg}\n\nOriginal contract preserved."
         
+        # VERIFY edited contract is actually complete
+        if len(edited_contract) < 500:
+            print("⚠️ WARNING: Edited contract seems incomplete!")
+            if lang == "arabic":
+                return "⚠️ التعديل أنتج عقد غير مكتمل. الرجاء المحاولة مرة أخرى."
+            return "⚠️ Edit produced incomplete contract. Please try again."
+        
         return edited_contract
-
     def review_contract(self, contract_text: str) -> Optional[str]:
         """Review contract including date validation"""
         lang = self._detect_language(contract_text)
@@ -305,7 +317,7 @@ Respond ONLY with valid JSON:
             top_k=5,
         )
 
-        # ✅ CHECK DATES AND INCLUDE IN REVIEW
+        # CHECK DATES AND INCLUDE IN REVIEW
         dates_valid, date_error, found_dates = self.date_validator.extract_and_validate_dates(
             text=contract_text,
             allow_past_start=True  # Allow past dates in review mode

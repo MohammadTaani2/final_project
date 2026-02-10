@@ -1,12 +1,41 @@
 """
-Flask application - COMPLETE FIX
+Flask application - COMPLETE FIX WITH EXPLICIT .ENV LOADING
 
 Key fixes:
-1. Handles 3-tuple return from LLM (message, contract, action)
-2. Only updates contract when action is 'updated'
-3. Preserves contracts when action is 'unchanged'
+1. Explicit .env file path loading
+2. Handles 3-tuple return from LLM (message, contract, action)
+3. Only updates contract when action is 'updated'
+4. Preserves contracts when action is 'unchanged'
 """
+
+# =====================
+# LOAD ENVIRONMENT VARIABLES FIRST - WITH EXPLICIT PATH
+# =====================
+from dotenv import load_dotenv
 import os
+from pathlib import Path
+
+# Get the directory where app.py is located
+basedir = Path(__file__).resolve().parent
+
+# Load .env from the same directory as app.py
+env_path = basedir / '.env'
+print(f"🔍 Loading .env from: {env_path}")
+print(f"📄 .env exists: {env_path.exists()}")
+
+load_dotenv(dotenv_path=env_path, verbose=True, override=True)
+
+# Verify it loaded
+openai_key = os.getenv("OPENAI_API_KEY")
+supabase_url = os.getenv("SUPABASE_URL")
+supabase_key = os.getenv("SUPABASE_SERVICE_KEY")
+cohere_key = os.getenv("COHERE_API_KEY")
+
+print(f"🔑 OpenAI API Key loaded: {openai_key[:20] if openai_key else 'NOT FOUND'}...")
+print(f"🔑 OpenAI Key length: {len(openai_key) if openai_key else 0}")
+print(f"🔑 Supabase URL loaded: {supabase_url[:30] if supabase_url else 'NOT FOUND'}...")
+print(f"🔑 Cohere API Key loaded: {cohere_key[:20] if cohere_key else 'NOT FOUND'}...")
+
 import json
 import uuid
 import secrets
@@ -99,7 +128,15 @@ def _log_event(
 # =====================
 
 try:
+    print("\n" + "="*60)
+    print("🚀 Initializing LLM Client...")
+    print("="*60)
+    
     api_config = APIConfig.from_env()
+    
+    print(f"✅ API Config loaded successfully")
+    print(f"   OpenAI key: {api_config.openai_api_key[:20]}...")
+    print(f"   Supabase URL: {api_config.supabase_url}")
     
     llm_client = LLMClient(
         openai_api_key=api_config.openai_api_key,
@@ -108,10 +145,18 @@ try:
         cohere_api_key=api_config.cohere_api_key,
         config=ModelConfig(),
     )
-    print("✅ LLM Client initialized")
+    print("✅ LLM Client initialized successfully")
+    print("="*60 + "\n")
     
 except ValueError as e:
     print(f"❌ Error initializing LLM client: {e}")
+    print(f"   This usually means environment variables are missing")
+    print(f"   Check your .env file at: {env_path}")
+    llm_client = None
+except Exception as e:
+    print(f"❌ Unexpected error initializing LLM client: {e}")
+    import traceback
+    traceback.print_exc()
     llm_client = None
 
 
@@ -228,15 +273,15 @@ def chat():
         turn = _next_turn_index()
 
         _log_event(
-    event_type="chat_turn",
-    user_message=user_message,
-    assistant_message=response,
-    extra={
-        "action": action,
-        "has_contract": bool(current_contract),
-        "contract_length": len(contract_to_send) if contract_to_send else 0
-    }
-)
+            event_type="chat_turn",
+            user_message=user_message,
+            assistant_message=response,
+            extra={
+                "action": action,
+                "has_contract": bool(current_contract),
+                "contract_length": len(contract_to_send) if contract_to_send else 0
+            }
+        )
 
         return jsonify({
             "response": response,
@@ -402,12 +447,23 @@ def internal_error(error):
 # =====================
 
 if __name__ == "__main__":
+    print("\n" + "=" * 60)
+    print("🚀 Starting Legal Lease Assistant")
     print("=" * 60)
-    print("🚀 Starting Legal Lease Assistant - COMPLETE FIX")
-    print("=" * 60)
+    print("✅ Environment variables loaded from .env")
     print("✅ 3-tuple return handling (message, contract, action)")
     print("✅ Contract preservation on illegal clause rejection")
     print("✅ Smart contract update logic")
     print("=" * 60)
+    
+    # Final verification
+    if llm_client:
+        print("✅ LLM Client is ready")
+    else:
+        print("❌ LLM Client failed to initialize - check errors above")
+    
+    print("=" * 60)
+    print(f"🌐 Server starting on http://0.0.0.0:5000")
+    print("=" * 60 + "\n")
     
     app.run(host="0.0.0.0", port=5000, debug=True)

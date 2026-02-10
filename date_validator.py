@@ -32,7 +32,7 @@ class DateValidator:
     
     # Arabic month names mapping
     ARABIC_MONTHS = {
-        'يناير': 1, 'ينايר': 1,
+        'يناير': 1, 'ينايرר': 1,
         'فبراير': 2, 'شباط': 2,
         'مارس': 3, 'آذار': 3,
         'أبريل': 4, 'نيسان': 4, 'ابريل': 4,
@@ -51,7 +51,7 @@ class DateValidator:
         Initialize validator
         
         Args:
-            reference_date: Reference date to use as "today" (default: actual today)
+            referenc/e_date: Reference date to use as "today" (default: actual today)
         """
         self.reference_date = reference_date or datetime.now()
     

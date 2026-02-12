@@ -69,6 +69,7 @@ mohammadtaani2-final_project/
 ├── prompts.py              # System & task prompts
 ├── pdf_utils.py            # PDF generation (Arabic RTL)
 ├── date_validator.py       # Date extraction & validation
+├── clause_validator.py       # Clause extraction & validation 
 ├── utils.py                # Helper utilities
 │
 ├── ingest_to_supabase.py   # Data migration to Supabase
@@ -76,7 +77,7 @@ mohammadtaani2-final_project/
 ├── split_law.py            # Law article chunking
 ├── split_mistakes.py       # Mistakes chunking
 │
-├── raw_text/               # Original legal texts
+├── raw_pdf/               # Original legal texts
 ├── prepared/               # Chunked JSONL files
 ├── templates/
 │   └── index.html          # Frontend UI
@@ -216,4 +217,5 @@ Final Project — AI & Legal Systems
 
 This project is for **educational and academic purposes only**.
 Not intended to replace professional legal advice.
+
 
